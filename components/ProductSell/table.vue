@@ -4,7 +4,8 @@
         <div class="w-full md:w-1/2 xl:w-1/3 p-2">
             <div class=" py-2 flex flex-row justify-center items-center">
                 <select v-model="categoryName" @change="searchWithCategory" class=" ml-3 bg-blue-900 outline-none hover:bg-blue-800 rounded-md py-3" id="">
-                    <option selected value="All">All Categoyrs</option>
+                    <option selected disabled value="">Select A Category</option>
+                    <option selected value="All">All Category</option>
                     <option v-for="category in categorys" :key="category.id" :value="category.name">{{category.name}}</option>
                 </select>
             </div>
