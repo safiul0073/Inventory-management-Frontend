@@ -13,13 +13,10 @@
     
 </div>
 
-<!-- <div v-else>
-  <Login/>
-</div> -->
 </template>
 
 <script>
-import Login from "~/pages/auth/login.vue"
+
 import Navber from "~/components/Header/Navber.vue"
 import Sidebar from "~/components/Sidebar/sidebar.vue"
 
@@ -28,7 +25,7 @@ export default {
     components: {
         Navber,
         Sidebar,
-        Login
+        
     }
 }
 </script>

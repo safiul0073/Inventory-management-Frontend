@@ -11,14 +11,11 @@
 </template>
 
 <script>
-import Login from "./auth/login.vue"
 
 export default {
     
-
+  middleware: 'authenticated',
     components: {
-        Login,
-        
     }
 }
 </script>

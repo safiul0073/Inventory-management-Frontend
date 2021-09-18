@@ -1,6 +1,5 @@
-import categoryStror from './category'
 export const state = () => ({
-    authenticated: true,
+    authenticated: false,
 
 })
 
@@ -10,7 +9,3 @@ export const mutations = {
     },
 
 }
-
-export const modules = () => ({
-    category: categoryStror
-})

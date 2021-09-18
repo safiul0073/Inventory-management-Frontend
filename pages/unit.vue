@@ -18,6 +18,7 @@
 import Table from "~/components/Unit/table.vue"
 import Add from "~/components/Unit/addUnit.vue"
 export default {
+      middleware: 'authenticated',
     data () {
         return {
             isTable: true,

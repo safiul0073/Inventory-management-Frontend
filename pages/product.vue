@@ -18,6 +18,7 @@
 import Table from "~/components/Product/table.vue"
 import Add from "~/components/Product/addProduct.vue"
 export default {
+      middleware: 'authenticated',
     data () {
         return {
             isTable: true,

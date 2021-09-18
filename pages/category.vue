@@ -19,6 +19,7 @@
 import Table from "~/components/Category/table.vue"
 import Add from "~/components/Category/addCategory.vue"
 export default {
+      middleware: 'authenticated',
     data () {
         return {
             isTable: true,

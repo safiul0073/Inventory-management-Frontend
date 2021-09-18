@@ -20,6 +20,7 @@ import Table from "~/components/Order/table.vue"
 
 
 export default {
+      middleware: 'authenticated',
     data () {
         return {
             isTable: true,

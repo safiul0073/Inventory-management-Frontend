@@ -22,6 +22,7 @@ import Table from "~/components/ProductSell/table.vue"
 import ShowProduct from "~/components/ProductSell/ShowProduct.vue"
 
 export default {
+      middleware: 'authenticated',
     data () {
         return {
             isTable: true,
