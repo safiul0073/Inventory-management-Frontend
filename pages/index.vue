@@ -6,16 +6,17 @@
             </div>
         </div>
 
-
+        <Grid/>
     </div>
 </template>
 
 <script>
-
+import Grid from "~/components/Dashboard/grid.vue"
 export default {
     
   middleware: 'authenticated',
     components: {
+        Grid
     }
 }
 </script>

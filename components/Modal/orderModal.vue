@@ -21,7 +21,7 @@
                                     
 
                                 </tr>
-                                <tr v-for="product in data" :key="product.id" class="bg-gray-700 border-b border-gray-600">
+                                <tr v-for="product in data" :key="product.invoice_id" class="bg-gray-700 border-b border-gray-600">
 
                                     <td class="px-4 py-3">{{product.product_name}}</td>
                                     <td class="px-4 py-3">{{product.rate}}</td>
@@ -52,21 +52,29 @@ export default {
     data () {
         return {
             isShow: false,
+            items: [],
             data: []
         }
     },
 
-    created() {
-                this.$nuxt.$on('showingOrder', (items) => {
-                    
-                    this.data = items
+    async created() {
+
+                this.$nuxt.$on('showingOrder', async (invoice_no, items) => {
+
+                 this.data = await items.filter(item => item.invoice_id === invoice_no)
+                    // console.log(this.data)
         })
+
 
     },
 
     methods: {
         closeModal () {
             $nuxt.$emit("closeModal")
+        },
+
+        async callforItems(id) {
+                           
         }
     }
 }

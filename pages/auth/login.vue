@@ -75,7 +75,7 @@ export default {
 
     methods: {
         authLogin () {
-            this.$auth.loginWith('laravelSanctum', {
+            this.$auth.loginWith('laravelJWT', {
                     data: this.form
             }).then((response) => {
                 

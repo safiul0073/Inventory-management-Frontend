@@ -42,6 +42,11 @@ export default {
                     this.isTable = !this.isTable;
                     
         })
+        this.$nuxt.$on('AddUnitCustomeEvent', () => {
+                    
+                    this.isTable = !this.isTable;
+                    
+        })
     },
 
     methods: {

@@ -27,6 +27,7 @@
                 <th class="px-4 py-3">Category</th>
                 <th class="px-4 py-3">Unit</th>
                 <th class="px-4 py-3">price</th>
+                <!-- <th class="px-4 py-3">Quantity</th> -->
                 
             </tr>
             <tr  v-for="product in tableData" :key="product.id"  class=" cursor-pointer border-b border-gray-600 ">
@@ -40,6 +41,14 @@
                 <td class="px-4 py-3">{{product.category}}</td>
                 <td class="px-4 py-3">{{product.unit}}</td>
                 <td class="px-4 py-3">{{product.price}}</td>
+                <!-- <td class="px-4 py-3">
+                    <div>
+                        <button @click="increesQty">+</button>
+                        <input type="text" v-model="qty">
+                        <button @click="decreesQty">-</button>
+                    </div>
+                </td> -->
+                
 
             </tr>    
 
@@ -90,6 +99,14 @@ export default {
 
           $nuxt.$emit("cliningUp")
       }
+    },
+
+    increesQty () {
+        this.qty ++
+    },
+
+    decreesQty () {
+        this.qty --
     }
 }
 </script>

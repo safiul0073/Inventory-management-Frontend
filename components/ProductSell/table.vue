@@ -42,7 +42,9 @@
             <td class="px-4 py-3">{{product.name}}</td>
             <td class="px-4 py-3">{{product.category}}</td>
             <td class="px-4 py-3">{{product.unit}}</td>
-
+               <!-- <td class="px-4 py-3">
+                    <input se type="checkbox">
+                </td> -->
         </tr>    
 
 </table>

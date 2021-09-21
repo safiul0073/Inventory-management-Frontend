@@ -120,10 +120,10 @@ export default {
           this.form.description = '',
           this.form.category_id = '',
           this.form.unit_id = '',
-          this.quantity = '',
-          this.price = '',
-          this.alert_quantity = '',
-          this.status = ''
+          this.form.quantity = '',
+          this.form.price = '',
+          this.form.alert_quantity = '',
+          this.form.status = ''
     },
 
     async store () {
@@ -139,6 +139,7 @@ export default {
         await this.$axios.post('/api/product',formData, config).then((response) => {
           this.fromReset()
           $nuxt.$emit('AddUnitCustomeEvent')
+          
         })
     },
 
@@ -164,10 +165,10 @@ export default {
                     this.form.description = product.description,
                     this.form.category_id = product.category_id,
                     this.form.unit_id = product.unit_id,
-                    this.quantity = product.quantity,
-                    this.alert_quantity = product.alert_quantity,
-                    this.status = product.status
-                    console.log(product.quantity)
+                    this.form.quantity = product.quantity,
+                    this.form.alert_quantity = product.alert_quantity,
+                    this.form.status = product.status
+                    
         })
         this.$nuxt.$on('cliningUpForm', () => {
                     this.fromReset()          

@@ -18,7 +18,7 @@
     <td class="px-4 py-3">{{product.amount}}</td>
 
     <td class="px-4 py-3 flex justify-center items-center">
-        <button @click="showitems(product.items)" class="mr-3 text-blue-400 hover:text-blue-600 text-xl"> <i class="fas fa-edit"></i></button>
+        <button @click="showitems(product.invoice_no)" class="mr-3 text-blue-400 hover:text-blue-600 text-xl"> <i class="fas fa-edit"></i></button>
         
     </td>
   </tr>    
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import orderModal from "~/components/form/orderModal.vue"
+import orderModal from "~/components/Modal/orderModal.vue"
 export default {
     components: {
         orderModal
@@ -37,6 +37,7 @@ export default {
     data () {
         return {
             data: [],
+            items: [],
             
             isShowingModal: false
         }
@@ -44,9 +45,13 @@ export default {
    async created () {
             await this.$axios.get("/api/product-sell").then((response) => {
             this.data = response.data.sells
-            console.log(response)
+            
             
         })
+            await this.$axios.get("/api/sell-items").then((response) => {
+                                this.items = response.data.sell_items
+                                
+                            })
 
                 this.$nuxt.$on('closeModal', () => {
                     
@@ -57,9 +62,9 @@ export default {
     },
 
     methods: {
-        showitems (order) {
+        showitems (invoice_no) {
             this.isShowingModal = !this.isShowingModal
-            $nuxt.$emit("showingOrder", order)
+            $nuxt.$emit("showingOrder", invoice_no, this.items)
         }
     }
 }

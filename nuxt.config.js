@@ -67,8 +67,8 @@ export default {
 
     auth: {
         strategies: {
-            'laravelSanctum': {
-                provider: 'laravel/sanctum',
+            'laravelJWT': {
+                provider: 'laravel/jwt',
                 url: 'http://localhost:8000',
                 endpoints: {
                     login: {
@@ -78,9 +78,18 @@ export default {
                         url: '/api/logout'
                     },
                     user: {
-                        url: '/api/user'
+                        url: '/api/me'
+                    },
+                    refresh: {
+                        url: '/api/refresh'
                     },
 
+                },
+                token: {
+                    maxAge: 60 * 60 // same as ttl but in seconds
+                },
+                refreshToken: {
+                    maxAge: 20160 * 60 // same as refresh_ttl but in seconds
                 },
                 redirect: {
                     login: 'auth/login',
