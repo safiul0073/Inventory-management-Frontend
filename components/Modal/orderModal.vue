@@ -9,26 +9,26 @@
 
                     <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                        <div class="sm:flex sm:items-start">
-                      
+                        <div class="">
+                            <div >
+                                <p class="text-center text-gray-800 uppercase text-lg font-bold">Items Ordered</p>
+                            </div>
                             <table class="rounded-t-lg m-5 w-11/12 mx-auto bg-gray-800 text-gray-200">
                                 <tr class="text-left border-b border-gray-300">
 
-                                    <th class="px-4 py-3">Name</th>
+                                    <th class="px-4 py-3">Product Id</th>
                                     <th class="px-4 py-3">Rate</th>
                                     <th class="px-4 py-3">Price</th>
                                     <th class="px-4 py-3">Quantity</th>
                                     
 
                                 </tr>
-                                <tr v-for="product in data" :key="product.invoice_id" class="bg-gray-700 border-b border-gray-600">
+                                <tr v-for="(product, index) in items" :key="index" class="bg-gray-700 border-b border-gray-600">
 
-                                    <td class="px-4 py-3">{{product.product_name}}</td>
+                                    <td class="px-4 py-3">{{product.product_id}}</td>
                                     <td class="px-4 py-3">{{product.rate}}</td>
-                                    <td class="px-4 py-3">{{product.quantity}}</td>
                                     <td class="px-4 py-3">{{product.amount}}</td>
-
-                                   
+                                    <td class="px-4 py-3">{{product.quantity}}</td>
                                 </tr>    
 
                                 </table>
@@ -49,20 +49,19 @@
 
 <script>
 export default {
+    props: ["items"],
     data () {
         return {
             isShow: false,
-            items: [],
+            
             data: []
         }
     },
 
-    async created() {
+    created() {
 
-                this.$nuxt.$on('showingOrder', async (invoice_no, items) => {
-
-                 this.data = await items.filter(item => item.invoice_id === invoice_no)
-                    // console.log(this.data)
+                this.$nuxt.$on('showingOrder', ( ) => {
+                   
         })
 
 
@@ -73,9 +72,7 @@ export default {
             $nuxt.$emit("closeModal")
         },
 
-        async callforItems(id) {
-                           
-        }
+
     }
 }
 </script>

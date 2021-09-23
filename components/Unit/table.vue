@@ -29,13 +29,23 @@ export default {
         }
     },
    async created () {
-            await this.$axios.get("/api/unit").then((response) => {
-            this.data = response.data.units
-            
+
+       await this.getData()
+            this.$nuxt.$on('AddUnitCustomeEvent', () => {
+                    
+                    this.getData()
+                    
         })
     },
 
     methods: {
+
+        async getData () {
+            await this.$axios.get("/api/unit").then((response) => {
+            this.data = response.data.units
+                
+            })
+        },
         async deleteUnit (unit) {
              await this.$axios.delete("/api/unit/"+unit.id).then((response) => {
                     

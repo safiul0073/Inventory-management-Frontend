@@ -10,7 +10,7 @@
     <th class="px-4 py-3">Items</th>
 
   </tr>
-  <tr v-for="product in data" :key="product.id" class="bg-gray-700 border-b border-gray-600">
+  <tr v-for="(product, index) in data" :key="index" class="bg-gray-700 border-b border-gray-600">
 
     <td class="px-4 py-3">{{product.invoice_no}}</td>
     <td class="px-4 py-3">{{product.name}}</td>
@@ -18,13 +18,13 @@
     <td class="px-4 py-3">{{product.amount}}</td>
 
     <td class="px-4 py-3 flex justify-center items-center">
-        <button @click="showitems(product.invoice_no)" class="mr-3 text-blue-400 hover:text-blue-600 text-xl"> <i class="fas fa-edit"></i></button>
+        <button @click="showitems(product.items)" class="mr-3 text-blue-400 hover:text-blue-600 text-xl"> <i class="far fa-list-alt"></i></button>
         
     </td>
   </tr>    
 
 </table>
- <orderModal v-if="isShowingModal"/>
+ <orderModal v-if="isShowingModal" :items="items"/>
 </div>
 </template>
 
@@ -44,7 +44,7 @@ export default {
     },
    async created () {
             await this.$axios.get("/api/product-sell").then((response) => {
-            this.data = response.data.sells
+            this.data = response.data.data
             
             
         })
@@ -62,9 +62,10 @@ export default {
     },
 
     methods: {
-        showitems (invoice_no) {
-            this.isShowingModal = !this.isShowingModal
-            $nuxt.$emit("showingOrder", invoice_no, this.items)
+        showitems (items) {
+            this.isShowingModal = !this.isShowingModa
+            $nuxt.$emit("showingOrder",items)
+            this.items = items
         }
     }
 }

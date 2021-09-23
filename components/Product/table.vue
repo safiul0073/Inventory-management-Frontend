@@ -45,14 +45,18 @@ export default {
         }
     },
    async created () {
-            await this.$axios.get("/api/product").then((response) => {
-            this.data = response.data.products
-            
-        })
+       this.getData()
+       this.$nuxt.$on('AddUnitCustomeEvent', () => {this.getData()})
         
     },
 
     methods: {
+        async getData () {
+            await this.$axios.get("/api/product").then((response) => {
+            this.data = response.data.products
+            
+            })
+        },
         async deleteProduct (product) {
             await this.$axios.delete("/api/product/"+product.id).then((response) => { })
             const index = this.data.indexOf(product)

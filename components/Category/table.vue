@@ -28,14 +28,22 @@ export default {
             data: []
         }
     },
-   async mounted () {
-            await this.$axios.get("/api/category").then((response) => {
-            this.data = response.data.categorys
-            
+   async created () {
+       this.getData()
+               this.$nuxt.$on('AddCategoryCustomeEvent', () => {
+                    
+                    this.getData()
+                    
         })
     },
 
     methods: {
+        async getData () {
+            await this.$axios.get("/api/category").then((response) => {
+            this.data = response.data.categorys
+                    
+                })
+        },
         async deleteCategory (category) {
              await this.$axios.delete("/api/category/"+category.id).then((response) => {
                     console.log(response)

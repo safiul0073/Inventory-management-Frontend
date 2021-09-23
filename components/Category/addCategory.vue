@@ -3,8 +3,10 @@
     <div class="w-1/2 mx-auto pt-8">
       
         <div class=" py-2">
-            <label for="" class=" font-bold text-lg mb-2 ">Name:</label>
-            <input type="text" v-model="form.name" placeholder="Enter Category Name" class="w-full outline-none px-2 text-gray-700 rounded-full py-1" >
+            <label for="" :class="valError.name? 'text-red-800': 'text-gray-100'" class=" font-bold text-lg mb-2 ">Name:</label>
+            <input @change="clearErrors" required type="text" v-model="form.name" placeholder="Enter Category Name" class="w-full outline-none px-2 text-gray-700 rounded-full py-1" >
+            <p v-show="valError.name" class="text-red-800 font-small py-1">Name Field Required</p>
+            
         </div>
         <div class=" py-2 flex flex-col">
             <label for="" class=" font-bold text-lg mb-2 ">Description:</label>
@@ -21,10 +23,13 @@
 </template>
 
 <script>
+
 export default {
+
   data () {
     return {
       isUpdate: false,
+      valError: {},
       form :{
         name: '',
         description: '',
@@ -34,6 +39,13 @@ export default {
   },
 
   methods: {
+    clearErrors () {
+      for (var variableKey in this.valError){
+          if (this.valError.hasOwnProperty(variableKey)){
+              delete this.valError[variableKey];
+          }
+      }
+    },
     fromReset () {
           this.form.name = '',
           this.form.description = '',
@@ -45,6 +57,11 @@ export default {
         }).then((response) => {
           this.fromReset()
           $nuxt.$emit('AddCategoryCustomeEvent')
+         
+        }).catch((error) => {
+          this.valError = error.response.data.errors
+          alert(this.valError.name)
+          console.log(this.valError.name)
         })
     },
     async updateCategory () {
@@ -56,6 +73,10 @@ export default {
           this.fromReset()
           this.isUpdate = !this.isUpdate;
           $nuxt.$emit('AddCategoryCustomeEvent')
+        }).catch((error) => {
+          this.valError = error.response.data.errors
+          alert(this.valError.name)
+          console.log(this.valError.name)
         })
         
     },

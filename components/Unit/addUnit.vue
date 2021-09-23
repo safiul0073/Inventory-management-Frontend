@@ -3,12 +3,14 @@
     <div class="w-1/2 mx-auto pt-8">
       
         <div class=" py-2">
-            <label for="" class=" font-bold text-lg mb-2 ">Name:</label>
-            <input type="text" v-model="form.name" placeholder="Enter Unit Name" class="w-full outline-none px-2 text-gray-700 rounded-full py-1" >
+            <label for="" :class="valError.name? 'text-red-800': 'text-gray-100'" class=" font-bold text-lg mb-2 ">Name:</label>
+            <input @change="clearErrors" required type="text" v-model="form.name" placeholder="Enter Unit Name" class="w-full outline-none px-2 text-gray-700 rounded-full py-1" >
+            <p v-show="valError.name" class="text-red-800 font-small py-1">{{valError.name ? valError.name[0] : ''}}</p>
         </div>
         <div class=" py-2 flex flex-col">
-            <label for="" class=" font-bold text-lg mb-2 ">Code:</label>
-            <input type="text" v-model="form.code" placeholder="Enter code" class="w-full outline-none px-2 text-gray-700 rounded-full py-1" >
+            <label for="" :class="valError.code? 'text-red-800': 'text-gray-100'" class=" font-bold text-lg mb-2 ">Code:</label>
+            <input @change="clearErrors" required type="text" v-model="form.code" placeholder="Enter code" class="w-full outline-none px-2 text-gray-700 rounded-full py-1" >
+            <p v-show="valError.code" class="text-red-800 font-small py-1">{{valError.code ? valError.code[0] : ''}}</p>
         </div>
         <div class=" py-2 w-full ">
             <button @click="update" v-show="isUpdate" class="py-1 px-8 text-white bg-blue-900 rounded-full hover:bg-blue-600">Update</button>
@@ -22,9 +24,11 @@
 
 <script>
 export default {
+  
   data () {
     return {
       isUpdate: false,
+      valError: {},
       form :{
         name: '',
         code: '',
@@ -34,6 +38,13 @@ export default {
   },
 
   methods: {
+    clearErrors () {
+      for (var variableKey in this.valError){
+          if (this.valError.hasOwnProperty(variableKey)){
+              delete this.valError[variableKey];
+          }
+      }
+    },
     fromReset () {
           this.form.name = '',
           this.form.code = '',
@@ -45,6 +56,9 @@ export default {
         }).then((response) => {
           this.fromReset()
           $nuxt.$emit('AddUnitCustomeEvent')
+        }).catch((error) => {
+          this.valError = error.response.data.errors
+
         })
     },
     async update () {
@@ -56,6 +70,9 @@ export default {
           this.fromReset()
           this.isUpdate = !this.isUpdate;
           $nuxt.$emit('AddUnitCustomeEvent')
+        }).catch((error) => {
+          this.valError = error.response.data.errors
+
         })
         
     },
